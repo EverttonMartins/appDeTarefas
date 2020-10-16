@@ -121,41 +121,5 @@
             echo "Preencha todos os campos!";
         }
 
-    }else if($acao == 'cadastrar'){
-
-    $nome = addslashes($_POST['NOME']);
-    $senha = addslashes($_POST['SENHA']);
-    $confsenha = addslashes($_POST['CONFSENHA']);
-    //verificar se esta preenchido
-    if (!empty($nome) && !empty($senha) && !empty($confsenha)) 
-    {
-      $u->conectar("database","localhost","root","");
-       if ($u->msgErro =="") 
-       {
-
-            if($senha == $confsenha)
-            {
-
-                if($u->cadastrar($nome,$senha))
-                {
-                    echo "Cadastrado com sucesso! Acesse para entrar!";
-                    header("location: login.php");
-                }
-                else
-                {
-                    echo "Pessoa ja cadastrada!";
-                    header("location: cadastrarUsuario.php");
-                }
-
-            }
-            else 
-            {
-                echo "Senha e confirmar senha não correspondem!";
-                header("location: cadastrarUsuario.php");
-            }
-       }
-
     }
-}
-
 ?>
