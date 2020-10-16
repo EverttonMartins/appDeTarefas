@@ -1,4 +1,5 @@
 <?php
+    session_start();
     
     require_once 'usuarios.php';
     $u = new Usuario;
@@ -34,9 +35,11 @@
 			<div class="row">
 				<div class="col-md-3 menu">
 					<ul class="list-group">
-						<li class="list-group-item"><a href="index.php">Tarefas pendentes</a></li>
-						<li class="list-group-item active"><a href="#">Nova tarefa</a></li>
-						<li class="list-group-item"><a href="todas_tarefas.php">Todas tarefas</a></li>
+                        <?php if(isset($_SESSION['id'])){?>
+                            <li class="list-group-item"><a href="index.php">Tarefas pendentes</a></li>
+                            <li class="list-group-item active"><a href="#">Nova tarefa</a></li>
+                            <li class="list-group-item"><a href="todas_tarefas.php">Todas tarefas</a></li>
+                        <?php } ?> 
 					</ul>
 				</div>
 <!------------------------------------>
@@ -50,9 +53,9 @@
                                     <div class="container"><!-- container --> 
 
                                             
-                                        <form method="POST">  <!-- fim formulario -->
+                                        <form method="POST" action="tarefa_controller.php?acao=cadastrar">  <!--formulario -->
                         
-                                                <!--Nome completo-->
+                                                <!--Login-->
                                                 <div class="form-group">
                                                     <label><span style="color: red">*</span>Login</label>
                                                     <input type="text" class="form-control" minlength="5"  name="NOME" onkeypress="return lettersOnly(event);" required>
@@ -97,48 +100,5 @@
 
 			</div>
 		</div>
-
-<?php
-//verificar se clicou no botao
-
-if(isset($_POST['NOME']))
-{
-    $nome = addslashes($_POST['NOME']);
-    $senha = addslashes($_POST['SENHA']);
-    $confsenha = addslashes($_POST['CONFSENHA']);
-    //verificar se esta preenchido
-    if (!empty($nome) && !empty($senha) && !empty($confsenha)) 
-    {
-      $u->conectar("database","localhost","root","");
-       if ($u->msgErro =="") 
-       {
-
-            if($senha == $confsenha)
-            {
-
-                if($u->cadastrar($nome,$senha))
-                {
-                    echo "Cadastrado com sucesso! Acesse para entrar!";
-                }
-                else
-                {
-                    echo "Pessoa ja cadastrada!";
-                }
-
-            }
-            else 
-            {
-                echo "Senha e confirmar senha não correspondem!";
-            }
-       }
-
-    }
-    else
-    {
-        echo "Preencha todos os campos!";
-    }
-}
-?>
-
 	</body>
 </html>
