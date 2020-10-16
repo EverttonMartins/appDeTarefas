@@ -121,5 +121,38 @@
             echo "Preencha todos os campos!";
         }
 
+    }else if($acao == 'cadastrar'){
+
+    $nome = addslashes($_POST['NOME']);
+    $senha = addslashes($_POST['SENHA']);
+    $confsenha = addslashes($_POST['CONFSENHA']);
+    //verificar se esta preenchido
+    if (!empty($nome) && !empty($senha) && !empty($confsenha)) 
+    {
+      $u->conectar("database","localhost","root","");
+       if ($u->msgErro =="") 
+       {
+
+            if($senha == $confsenha)
+            {
+
+                if($u->cadastrar($nome,$senha))
+                {
+                    header("location: cadastrarUsuario.php?acao=cadastrado");
+                }
+                else
+                {
+                    header("location: cadastrarUsuario.php?acao=jatemcadastro");
+                }
+
+            }
+            else 
+            {
+                    header("location: cadastrarUsuario.php?acao=erroform");
+            }
+       }
+
     }
+}
+
 ?>

@@ -67,9 +67,9 @@
 
                                                 <button class="btn btn-success" type="submit">Entrar</button>
                                                        
-                                                <a class="btn btn-success" href="cadastrarUsuario.php" role="button">Cadastre-se</a>
+                                                <a class="btn btn-success" href="cadastrarUsuario.php?acao=login" role="button">Cadastre-se</a>
                                                                          
-                                            </form>
+                                            </form> 
                                                              
                                     </div> <!-- /container -->
 							</div>
